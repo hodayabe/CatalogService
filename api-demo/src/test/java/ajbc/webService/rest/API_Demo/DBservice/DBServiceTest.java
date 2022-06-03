@@ -57,20 +57,26 @@ public class DBServiceTest {
 		assertEquals(dbDevices, dbService.getAllDevices());
 	}
 
-//	@Test
-//	void testGetIOTThingsByProperties() {
-//		List<IOTThing> things = new ArrayList<IOTThing>();
-//		things.add();
-//		dbService.updateDB(thing);
-//		List<IOTThing> iotThingsReturn = dbService.getIotThingByproperties(strType, manufacturer, model);
-//		assertArrayEquals(iotThingsReturn.toArray(), iotThings.toArray());
-//	}
-//
-//
-//	@Test
-//	void testGetDevicesByProperties() {
-//		//TODO
-//		
-//	}
+	@Test
+	void testGetIOTThingsByProperties() {
+		List<IOTThing> iotThings = new ArrayList<IOTThing>();
+		iotThings.add(thing);
+		dbService.updateDB(thing);
+		List<IOTThing> iotThingsReturn = dbService.getIotThingByproperties(stringType, manufacturer, model);
+		assertArrayEquals(iotThingsReturn.toArray(), iotThings.toArray());
+		
+	}
+
+
+	@Test
+	void testGetDevicesByProperties() {
+		List<Device>devices=new ArrayList<Device>();
+		devices.add(new Device(type.CONTROLLER,"modmodel","sony",4)) ;
+		thing.setDevices(devices);
+		dbService.updateDB(thing);
+		Device returnedDevice = dbService.getDeviceBypropertiesAndPerentId(thing.getID(), "CONTROLLER","modmodel","sony");
+		assertEquals(returnedDevice,devices.get(0));
+	}
+	
 
 }
