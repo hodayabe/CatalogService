@@ -1,0 +1,100 @@
+package ajbc.webService.rest.API_Demo.DBservice;
+
+import static org.junit.jupiter.api.Assertions.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+import java.util.stream.Collectors;
+
+import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+
+import ajbc.webService.rest.API_Demo.DB.DBMock;
+import ajbc.webService.rest.API_Demo.enums.Type;
+import ajbc.webService.rest.API_Demo.models.Device;
+import ajbc.webService.rest.API_Demo.models.IOTThing;
+
+public class DBServiceTest {
+	private IOTThing thing = new IOTThing(Type.ACTUATOR,"mmodel","fff",null);
+	private Device device;
+	//private UUID uuid = UUID.nameUUIDFromBytes("id".getBytes());
+	private final Type type = Type.ACTUATOR;
+	private final String model = "mmodel";
+	private final String manufacturer = "fff";
+	private final double reading = 2;
+	
+	private DBMock db=DBMock.getInstance();
+	private DBService dbService=new DBService();
+	private final List<IOTThing> dbThings  = db.getIotThings().values().stream().collect(Collectors.toList());
+	private final List<Device> dbDevices = db.getDevices().values().stream().collect(Collectors.toList());
+	
+
+	@Test
+	public void testGetAllIOTThing() {
+		assertAll(
+		        () -> assertEquals(dbThings,dbService.getAllIOTThing()),
+		        () -> assertEquals(dbDevices, dbService.getAllDevices()));
+	}
+	
+	@Test
+	void testUpdateDB() {
+		dbService.updateDB(thing);
+		assertEquals(thing, db.getIotThings().get(thing.getID()));
+	}
+	
+
+	
+//	@Test
+//	@DisplayName("Add IOT thing to DB")
+//	void testAddToDB() {
+//		IOTThing newIOTthing = new IOTThing();
+//		dbService.addToDB(newIOTthing);
+//		
+//		//check DB for new IOT thing
+//		assertTrue(DBMock.getInstance().getIotThings().containsKey(newIOTthing.getUuid()));
+//		//check DB for new devices of IOT thing
+//		if(newIOTthing.getDevices() != null) {
+//			newIOTthing.getDevices().stream()
+//			.forEach(device -> assertTrue(DBMock.getInstance().getDevices().containsKey(device.getUuid()),device.getModel()));
+//		}
+//	}
+	
+//	@Test
+//	
+//	void testGetIOTThingByID() {
+//		assertEquals(THING_FROM_DB,dbService.getThingById(THING_FROM_DB.getID()));
+//	}
+//	
+//	
+//	@Test
+//	void testGetIOTThingByProperties() {
+//		//TODO
+//	}
+//	
+//	@Test
+//	void testGetAllDevices() {
+//		assertEquals(DB_DEVICES, dbService.getAllDevices());
+//	}
+//	
+//	@Test
+//	void testGetDeviceByID() {
+//		Device expectedDevice = DB_DEVICES.get(0);
+//		assertEquals(expectedDevice,dbService.getDeviceById(expectedDevice.getID()));
+//	}
+	
+//	@Test
+//	@DisplayName("Ensure correct exceptionn handling for getDeviceByID()")
+//	void testGetDeviceByIDException() {
+//		assertThrows(MissingDataException.class, () -> dbService.getDeviceByID(UUID.randomUUID()),"ID is not id DB");
+//	}
+//	
+//	@Test
+//	void testGetDevicesByProperties() {
+//		//TODO
+//		
+//	}
+	
+
+}

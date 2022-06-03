@@ -1,0 +1,15 @@
+package ajbc.webService.rest.API_Demo.DBservice;
+
+import java.util.Map;
+
+import ajbc.webService.rest.API_Demo.DB.DBMock;
+import ajbc.webService.rest.API_Demo.models.IOTThing;
+
+public class IotThingDBService {
+	private DBMock db;
+	private Map<Long, IOTThing>	iotThings;
+	
+	
+	
+	
+}

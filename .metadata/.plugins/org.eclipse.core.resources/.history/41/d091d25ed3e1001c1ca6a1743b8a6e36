@@ -1,0 +1,50 @@
+package ajbc.webService.rest.API_Demo.DBservice;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+
+import ajbc.webService.rest.API_Demo.DB.DBMock;
+import ajbc.webService.rest.API_Demo.models.Device;
+import ajbc.webService.rest.API_Demo.models.IOTThing;
+
+public class IotThingDBService {
+
+	private DBMock db;
+	private static Map<UUID, IOTThing> things;
+	private static Map<UUID, Device> devices;
+
+	public IotThingDBService() {
+		db = DBMock.getInstance();
+		things = db.getIotThings();
+		devices = db.getDevices();
+	}
+
+		
+	private void וpdateExistingThing(List<Device> oldDevices, List<Device> newDevices) {
+		for (Device device : oldDevices) {
+			if(!newDevices.contains(device)) {
+				devices.remove(device.getID());
+			}
+		}
+		
+		for (Device device : newDevices) {
+			if(!oldDevices.contains(device)) {
+				devices.put(device.getID(), device);
+			}
+		}
+		System.out.println("thing apdate");
+	}
+	
+	public void updateDB(IOTThing thing) {
+		if(!things.containsKey(thing.getID())) {
+			things.put(thing.getID(), thing);
+			thing.getDevices().forEach(device -> devices.put(device.getID(), device));
+			System.out.println("add new thing");
+			return;
+		}
+		וpdateExistingThing(things.get(thing.getID()).getDevices(),thing.getDevices());		
+	}	
+	
+}

@@ -1,0 +1,32 @@
+package ajbc.webService.rest.API_Demo.DB;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import ajbc.webService.rest.API_Demo.models.Device;
+import ajbc.webService.rest.API_Demo.models.IOTThing;
+
+public class DBMock {
+	private static DBMock instance = null;
+	private static Map<String,IOTThing> iotThings;
+	private static Map<String,Device> devices;
+	
+	public static synchronized DBMock getInstance() {
+		if(instance==null)
+			instance = new DBMock();
+		return instance;
+	}
+	
+	private DBMock() {
+		iotThings = new HashMap<String,IOTThing>();
+		devices = new HashMap<String,Device>();
+	}
+
+	public Map<String, IOTThing> getIotThings() {
+		return iotThings;
+	}
+
+	public Map<String, Device> getDevices() {
+		return devices;
+	}
+}

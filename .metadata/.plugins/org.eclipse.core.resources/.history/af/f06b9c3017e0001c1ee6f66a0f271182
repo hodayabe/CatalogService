@@ -1,0 +1,64 @@
+package ajbc.webService.rest.API_Demo.recorses;
+
+import java.util.List;
+
+import ajbc.webService.rest.API_Demo.DBservice.CourseDBService;
+import ajbc.webService.rest.API_Demo.DBservice.StudentDBService;
+import ajbc.webService.rest.API_Demo.models.Student;
+import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.DELETE;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.POST;
+import jakarta.ws.rs.PUT;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.MediaType;
+
+@Path("course")
+public class CourseResource {
+	CourseDBService coursesDB= new CourseDBService();
+	
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Student> getAllStudents() {
+		return studentDB.getAllStudent();
+	}
+	
+	@GET
+	@Path("/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Student getStudentById(@PathParam("id") long id) {
+		return studentDB.getStudentById(id);
+	}
+	
+	@POST
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Student addStudent(Student student) {
+		return studentDB.addStudent(student);
+	}
+	
+	
+	@PUT
+	@Path("/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Student updateStudent(@PathParam("id") long id,Student student) {
+		return studentDB.updateStudent(id, student);
+	}
+	
+	
+	@DELETE
+	@Path("/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Student deleteStudent(@PathParam("id") long id) {
+		return studentDB.deleteStudent(id);
+	}
+	
+	
+	
+	
+
+}

@@ -1,0 +1,26 @@
+package ajbc.webService.rest.API_Demo.models;
+import java.util.UUID;
+public abstract class Hardware {
+	private long ID;
+	private Type type;
+	private String model;
+	private String manufacturer;
+	private static int counter;
+	
+	public Hardware() {
+		this.ID = generateID();
+	}
+
+	public Course(String name) {
+		this.NUMBER = generateNumber();
+		setName(name);
+	}
+
+	private synchronized long generateID() {
+		return counter++;
+	}
+
+	
+	
+
+}

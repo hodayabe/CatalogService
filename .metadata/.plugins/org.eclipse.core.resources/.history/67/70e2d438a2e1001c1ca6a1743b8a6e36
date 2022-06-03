@@ -1,0 +1,84 @@
+package ajbc.webService.rest.API_Demo.client;
+
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.Socket;
+import java.net.UnknownHostException;
+import java.util.concurrent.CountDownLatch;
+
+import com.google.gson.Gson;
+
+import ajbc.webService.rest.API_Demo.models.IOTThing;
+
+public class InventoryReportRunable implements Runnable {
+	private String  serverName;
+	private  int serverPort;
+	CountDownLatch latch;
+	private IOTThing thing;
+	
+
+	public InventoryReportRunable(IOTThing thing,CountDownLatch latch,String serverName, int serverPort) {
+		this.thing=thing;
+		this.latch=latch;
+		this.serverName=serverName;
+		this.serverPort=serverPort;
+		
+	}
+
+	@Override
+	public void run() {
+		Socket clientSocket = null;
+		PrintWriter writer = null;
+		BufferedReader bufferReader = null;
+
+		try {
+			latch.countDown();
+			latch.await();
+			clientSocket = new Socket(serverName, serverPort);
+			System.out.println("Connected to server");
+			
+			Gson gson = new Gson();
+	        String jsonThing = gson.toJson(thing);
+	        
+	     // sending data
+	        writer = new PrintWriter(clientSocket.getOutputStream(), true);
+	        writer.println(jsonThing);
+
+//			// create reader
+//			bufferReader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+//			// reading data
+//			String line = bufferReader.readLine();
+//			System.out.println("Server say: "+line);
+
+		} catch (UnknownHostException e) {
+			System.err.println("Server is not found");
+			e.printStackTrace();
+		} catch (IOException e) {
+			System.err.println("Socket failed");
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		} finally {
+			if (clientSocket != null)
+				try {
+					clientSocket.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			if (writer != null)
+				writer.close();
+			if (bufferReader != null)
+				writer.close();
+		}
+
+	}
+
+
+	
+
+	
+
+}

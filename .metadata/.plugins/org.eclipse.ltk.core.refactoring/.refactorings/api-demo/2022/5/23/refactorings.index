@@ -1,0 +1,26 @@
+1653901705880	Delete element
+1653913047098	Encapsulate field 'name'
+1653914884536	Copy compilation unit
+1653941832425	Rename type 'StudentFilterBin'
+1653941854711	Rename package 'ajbc.webService.rest.API_Demo.bins'
+1654008561874	Encapsulate field 'reading'
+1654009258569	Copy compilation unit
+1654009628913	Encapsulate field 'devices'
+1654017595979	Rename type 'InventoryClient'
+1654017712161	Rename field 'NUM_PLAYERS'
+1654018986278	Encapsulate field 'serverPort'
+1654018992899	Encapsulate field 'serverName'
+1654020467538	Copy compilation unit
+1654023376004	Delete element
+1654027606948	Copy package
+1654027614065	Delete element
+1654027627220	Move compilation unit
+1654027634057	Move compilation unit
+1654027651679	Copy package
+1654027661326	Delete element
+1654027664907	Delete element
+1654027678211	Move compilation unit
+1654027682108	Move compilation unit
+1654027995394	Encapsulate field 'iotThings'
+1654027999684	Encapsulate field 'devices'
+1654028191633	Rename type 'DBService'

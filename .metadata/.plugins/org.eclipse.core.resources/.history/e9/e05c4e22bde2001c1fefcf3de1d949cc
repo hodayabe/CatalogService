@@ -1,0 +1,8 @@
+package ajbc.webService.rest.API_Demo.models;
+
+import java.util.UUID;
+
+import ajbc.webService.rest.API_Demo.enums.Type;
+
+public abstract class Hardware {
+	

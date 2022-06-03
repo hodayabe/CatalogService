@@ -1,0 +1,72 @@
+package ajbc.webService.rest.API_Demo.server;
+
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+
+import ajbc.webService.rest.API_Demo.DBservice.DBService;
+
+public class ServerThread extends Thread {
+	private final int PORT;
+	private ExecutorService executorService;
+	
+	
+	public ServerThread(int port) {
+		this.PORT=port;
+		executorService = Executors.newCachedThreadPool();
+	}
+	
+	@Override
+	public void run() {
+
+		try (ServerSocket serverSocket = new ServerSocket(PORT);) {
+			System.out.println("Inventory Server started on port " + PORT);
+
+			while (true) {
+				Socket clientSocket = serverSocket.accept();
+				executorService.execute(new ServerSocketThread(clientSocket));
+			}
+		} catch (IOException e) {
+			System.err.println("Failed to start server on port " + PORT);
+			e.printStackTrace();
+		}
+	}
+	
+	public void kill() {
+
+		try {
+			executorService.shutdown();
+			executorService.awaitTermination(2, TimeUnit.SECONDS);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+
+//	public static void main(String[] args) throws InterruptedException {
+//
+//		ExecutorService executorService = Executors.newCachedThreadPool();
+//		DBService db=new DBService();
+//		try (ServerSocket serverSocket = new ServerSocket(PORT);) {
+//
+//			System.out.println("Inventory Server started on port " + PORT);
+//
+//			while (true) {
+//				Socket clientSocket = serverSocket.accept();
+//				executorService.execute(new ServerThread(clientSocket,db));
+//			}
+//		} catch (IOException e) {
+//			System.err.println("Failed to start server on port " + PORT);
+//			e.printStackTrace();
+//		} finally {
+//			executorService.shutdown();
+//			executorService.awaitTermination(2, TimeUnit.SECONDS);
+//		}
+//
+//	}
+
+}

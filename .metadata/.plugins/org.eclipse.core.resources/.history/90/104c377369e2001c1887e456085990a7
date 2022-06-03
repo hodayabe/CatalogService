@@ -1,0 +1,44 @@
+package ajbc.webService.rest.API_Demo.recorses;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
+import org.junit.jupiter.api.Test;
+
+import ajbc.webService.rest.API_Demo.DB.DBMock;
+import ajbc.webService.rest.API_Demo.beans.IotThingFilterBean;
+import ajbc.webService.rest.API_Demo.models.IOTThing;
+import jakarta.ws.rs.core.Response;
+
+class IOTThingResourceTest {
+	private IOTThingResource thingResource;
+	private List<IOTThing> things;
+
+	public IOTThingResourceTest() {
+		this.thingResource = new IOTThingResource();
+		things = new ArrayList<IOTThing>(DBMock.getInstance().getIotThings().values());
+	}
+
+	@Test
+	void testGetAllThings() {
+		IotThingFilterBean filterBean = new IotThingFilterBean();
+		
+		Response acutal = thingResource.getAllIOTThing();
+		assertEquals(200, acutal.getStatus());
+		assertEquals(things, acutal.getEntity());
+		
+		filterBean.setType(Type.CONTROLLER);
+		acutal = resource.getAllThings(filterBean);
+		assertEquals(200, acutal.getStatus());
+		assertEquals(things, acutal.getEntity());
+	}
+
+	@Test
+	void testGetThingById() {
+//		fail("Not yet implemented");
+	}
+}

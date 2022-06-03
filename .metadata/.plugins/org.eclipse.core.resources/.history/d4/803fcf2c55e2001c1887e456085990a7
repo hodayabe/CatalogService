@@ -1,0 +1,34 @@
+package ajbc.webService.rest.API_Demo.DBservice;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+
+import ajbc.webService.rest.API_Demo.DB.DBMock;
+import ajbc.webService.rest.API_Demo.exception.MissingDataException;
+import ajbc.webService.rest.API_Demo.models.Device;
+import ajbc.webService.rest.API_Demo.models.IOTThing;
+
+public class DeviceDBService {
+	private DBMock db;
+	private static Map<UUID, Device> devices;
+
+	public DeviceDBService() {
+		db = DBMock.getInstance();
+		devices = db.getDevices();
+	}
+
+	public Device getDeviceById(UUID id) throws MissingDataException{
+		Device device = devices.get(id);
+		if(device == null)
+			throw new MissingDataException("id "+id+" is not a valid Device ID");
+		return device;
+	}
+
+	public List<Device> getAllDevices() {
+		return new ArrayList<Device>(devices.values());
+	}
+
+
+}

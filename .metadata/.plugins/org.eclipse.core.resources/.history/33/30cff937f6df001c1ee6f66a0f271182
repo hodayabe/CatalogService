@@ -1,0 +1,5 @@
+package ajbc.webService.rest.API_Demo.DB;
+
+public class MyDB {
+
+}

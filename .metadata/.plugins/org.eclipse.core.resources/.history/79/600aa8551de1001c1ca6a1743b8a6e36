@@ -1,0 +1,28 @@
+package ajbc.webService.rest.API_Demo.server;
+
+import java.io.IOException;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+
+import ajbc.webService.rest.API_Demo.models.IOTThing;
+import ajbc.webService.rest.API_Demo.models.Type;
+
+public class MultiClient {
+
+	private final static String SERVER_NAME = "localhost";
+	private final static int SERVER_PORT = 8080, NUM_IotThings = 2;
+
+	public static void main(String[] args) throws IOException, InterruptedException {
+
+		ExecutorService clientsService = Executors.newFixedThreadPool(NUM_IotThings);
+		CountDownLatch latch = new CountDownLatch(NUM_IotThings);
+		for (int i = 0; i < NUM_IotThings; i++) {
+			clientsService.execute(new IOTThingRunable(new IOTThing(Type.SENSOR,"model","1.1.2000",null),latch,SERVER_NAME,SERVER_PORT));
+		}
+		clientsService.shutdown();
+		clientsService.awaitTermination(20, TimeUnit.SECONDS);
+	}
+
+}

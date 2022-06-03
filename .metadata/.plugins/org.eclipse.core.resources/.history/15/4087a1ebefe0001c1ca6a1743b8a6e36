@@ -1,0 +1,13 @@
+package ajbc.webService.rest.API_Demo.models;
+import java.util.UUID;
+public abstract class Hardware {
+	private long ID;
+	private Type type;
+	private String model;
+	private String manufacturer;
+	
+
+	
+	
+
+}

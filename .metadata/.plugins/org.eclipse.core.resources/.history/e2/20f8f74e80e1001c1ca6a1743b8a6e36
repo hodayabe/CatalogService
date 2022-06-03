@@ -1,0 +1,75 @@
+package ajbc.webService.rest.API_Demo.DB;
+
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
+import ajbc.webService.rest.API_Demo.models.Device;
+import ajbc.webService.rest.API_Demo.models.IOTThing;
+import ajbc.webService.rest.API_Demo.models.Type;
+
+public class DBMock {
+	private final int NUM_THING_DEVICES=7;
+	private static DBMock instance = null;
+	private Map<UUID, IOTThing>	iotThings;
+	private Map<UUID, Device> devices;
+	
+	
+	public static synchronized DBMock getInstance() {
+		if (instance == null)
+			instance = new DBMock();
+		return instance;
+	}
+	
+	private DBMock() {
+		iotThings = new HashMap<UUID, IOTThing>();
+		devices = new HashMap<UUID, Device>();
+		seedIOTThings();
+		seedDevices();
+	}
+
+
+	private void seedIOTThings() {
+		List<IOTThing> iotThingsList = Arrays.asList(
+				new IOTThing(Type.ACTUATOR,"model-1","1.1.2020")
+				,new IOTThing(Type.CONTROLLER,"model-2","2.2.2020")
+				,new IOTThing(Type.SENSOR,"model-3","3.3.2020")
+				);
+		
+		iotThings = iotThingsList.stream().collect(Collectors.toMap(IOTThing::getID, Function.identity()));
+	}
+	
+	private void seedDevices() {
+
+		List<Device> devices = new LinkedList<>();
+
+		iotThings.forEach((id, thing) -> {
+			for (int i = 0; i < NUM_THING_DEVICES; i++) {
+				Device device = new Device();
+				thing.addDevice(device);
+				devices.add(device);
+			}
+		});
+
+		this.devices = devices.stream().collect(Collectors.toMap(Device::getID, Function.identity()));
+	}
+
+	public Map<UUID, IOTThing> getIotThings() {
+		return iotThings;
+	}
+
+
+	public Map<UUID, Device> getDevices() {
+		return devices;
+	}
+
+	
+	
+	
+	
+}

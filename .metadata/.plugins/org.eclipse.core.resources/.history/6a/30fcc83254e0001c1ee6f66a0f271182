@@ -1,0 +1,65 @@
+package ajbc.webService.rest.API_Demo.DBservice;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import ajbc.webService.rest.API_Demo.DB.MyDB;
+import ajbc.webService.rest.API_Demo.models.Course;
+import ajbc.webService.rest.API_Demo.models.Student;
+
+public class CourseDBService {
+	
+	private MyDB db;
+	private Map<Long, Course> courses;
+
+	public CourseDBService() {
+		db = MyDB.getInstance();
+		courses = db.getCourses();
+	}
+
+	// return all the student from the db as a list
+	public List<Course> getAllCourses() {
+		return new ArrayList<Course>(courses.values());
+	}
+
+	public Course getCourseById(long id) {
+		return courses.get(id);
+	}
+
+	public Course addCourse(Course course) {
+		courses.put(course.getID(), course);
+		return course;
+	}
+
+	public Course updateCourse(long id, Course course) {
+		if (courses.containsKey(id)) {
+			Course currCourse = courses.get(id);
+			currCourse.setName(course.getName());
+			currCourse.setStudents(course.getStudents());
+			courses.put(id, currCourse);
+			return currCourse;
+		}
+		return null;
+	}
+	
+	
+	public Course deleteCourse(long id) {
+		return courses.remove(id);
+	}
+	
+//	
+//	public Course addStodentToCourse(long id,Course course,Student student) {
+//		if (courses.containsKey(id)) {
+//		courses.get(id).addStudents(student);
+//		return course;
+//		}
+//		return null;
+//	}
+//	
+	
+
+	
+	
+
+}

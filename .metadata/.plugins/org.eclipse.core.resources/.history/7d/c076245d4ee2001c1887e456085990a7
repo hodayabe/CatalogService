@@ -1,0 +1,48 @@
+package ajbc.webService.rest.API_Demo.DBservice;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+import java.util.stream.Collectors;
+
+import ajbc.webService.rest.API_Demo.DB.DBMock;
+import ajbc.webService.rest.API_Demo.enums.Type;
+import ajbc.webService.rest.API_Demo.exception.MissingDataException;
+import ajbc.webService.rest.API_Demo.models.Device;
+import ajbc.webService.rest.API_Demo.models.IOTThing;
+import jakarta.ws.rs.core.Response;
+
+public class IotThingDBService {
+
+	private DBMock db;
+	private static Map<UUID, IOTThing> things;
+
+	public IotThingDBService() {
+		db = DBMock.getInstance();
+		things = db.getIotThings();
+	}
+
+	public IOTThing getThingById(UUID id) throws MissingDataException {
+		IOTThing thing = things.get(id);
+		if (thing == null)
+			throw new MissingDataException("id " + id + " is not a valid student ID");
+		return thing;
+	}
+
+	public List<IOTThing> getAllIOTThing() {
+		return new ArrayList<IOTThing>(things.values());
+	}
+
+	public List<IOTThing> getIotThingByproperties(String type, String manufacturer, String modle) {
+		Type thingType = Type.valueOf(type.toUpperCase());
+		List<IOTThing> thingList = things.values().stream().toList();
+		for (IOTThing thing : thingList) {
+			if(!thing.getType().equals(thingType)||!thing.getModle().equals(modle)||!thing.getManufacturer().equals(manufacturer))
+				thingList.remove(thing);
+		}
+		
+		return thingList;
+	}
+
+}

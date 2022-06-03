@@ -1,0 +1,53 @@
+package ajbc.webService.rest.API_Demo.models;
+
+import java.util.List;
+
+public class Course {
+	private static long counter = 1000;
+	private final Long ID;
+	private String name;
+	List<Student> students;
+
+	public Course() {
+		this.ID = generateId();
+	}
+
+	private synchronized long generateId() {
+		return counter++;
+	}
+
+	public Course(String name, List<Student> students) {
+		this.ID = generateId();
+		setName(name);
+		setStudents(students);
+	}
+
+	public List<Student> getStudents() {
+		return students;
+	}
+
+	public void setStudents(List<Student> students) {
+		this.students = students;
+	}
+
+	public Long getID() {
+		return ID;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	@Override
+	public String toString() {
+		return "Course [ID=" + ID + ", name=" + name + ", students=" + students + "]";
+	}
+	
+	
+	
+
+}

@@ -1,0 +1,61 @@
+package ajbc.webService.rest.API_Demo.models;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
+public class IOTThing extends Hardware {
+	private final int MAX_DEVICES=10;
+	private List<Device> devices;
+	
+
+	public IOTThing() {
+		super();
+	}
+
+
+	public IOTThing(Type type, String model, String manufacturer) {
+		super(type, model, manufacturer);
+		devices = new ArrayList<Device>();
+	}
+
+	public List<Device> getDevices() {
+		return devices;
+	}
+
+	public void setDevices(List<Device> devices) {
+		this.devices = devices;
+	}
+
+	public void addDevice(Device device) {
+		devices.add(device);
+	}
+	
+	public  synchronized void simulateInventoryChange() {
+		Random rand=new Random();
+		if(!devices.isEmpty()) {
+			int removesNum=rand.nextInt(devices.size());
+			System.out.println("*******"+removesNum);
+			for (int i = 0; i <removesNum; i++) {
+				int index=rand.nextInt(devices.size()-1);
+				devices.remove(index);
+			}
+			
+		}
+		int addsNum=rand.nextInt(MAX_DEVICES-devices.size()-1);
+		for (int i = 0; i <addsNum; i++) {
+			devices.add(new Device(Type.SENSOR,"model","2.2.2000",1));
+		}
+		
+	}
+
+	
+	
+	@Override
+	public String toString() {
+		return "IOTThing [ID=" + this.getID() + ", type=" + this.getType() + ", model=" + this.getModel() 
+		+ ", manufacturer=" + this.getManufacturer() +",devices=" + devices + "]";
+	}
+
+
+}

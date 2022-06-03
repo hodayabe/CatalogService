@@ -1,0 +1,53 @@
+package ajbc.webService.rest.API_Demo.client;
+
+import java.io.IOException;
+import java.net.Socket;
+import java.util.Arrays;
+import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
+import ajbc.webService.rest.API_Demo.models.Device;
+import ajbc.webService.rest.API_Demo.models.IOTThing;
+import ajbc.webService.rest.API_Demo.models.Type;
+
+
+public class InventoryClient {
+
+	
+	public static void main(String[] args) throws IOException, InterruptedException {
+		final String SERVER_NAME = "localhost";
+		final int SERVER_PORT = 8080, NUM_POOL = 1,REPORTING_PERIOD_TIME=10; 
+		
+		IOTThing thing=initIotThing();
+		
+		ScheduledExecutorService executorService = Executors.newScheduledThreadPool(NUM_POOL);
+		for(int i=0; i<NUM_POOL;i++) {
+			try {
+				thing.simulateInventoryChange();
+				executorService.schedule(new InventoryReport(thing,new Socket(SERVER_NAME,SERVER_PORT)),REPORTING_PERIOD_TIME, TimeUnit.SECONDS);
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+			
+			
+		executorService.shutdown();
+		executorService.awaitTermination(20, TimeUnit.SECONDS);
+	}
+	
+	private static IOTThing initIotThing() {
+		List<Device> tempDevices=Arrays.asList(
+				new Device(Type.ACTUATOR,"model-11","1.1.2020",1)
+				,new Device(Type.SENSOR,"model-12","1.12.1999",3)
+				,new Device(Type.SENSOR,"model-12","1.2.2022",7.6)
+				);
+				
+		IOTThing tempIot=new IOTThing(Type.ACTUATOR,"model-1","1.1.2020");
+		tempIot.setDevices(tempDevices);
+		return tempIot;
+	}
+	
+
+}

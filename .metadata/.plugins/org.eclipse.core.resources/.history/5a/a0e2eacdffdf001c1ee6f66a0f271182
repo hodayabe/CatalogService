@@ -1,0 +1,33 @@
+package ajbc.webService.rest.API_Demo.DBservice;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import ajbc.webService.rest.API_Demo.DB.MyDB;
+import ajbc.webService.rest.API_Demo.models.Student;
+
+public class StudentDBService {
+
+	private MyDB db;
+	private Map<Long, Student> students;
+	
+	
+
+	public StudentDBService() {
+		db=MyDB.getInstance();
+		students=db.getStudents();
+	}
+
+
+
+	// return all the student from the db as a list
+	public List<Student> getAllStudent() {
+		return new ArrayList<Student>(students.values());
+	}
+	
+	public Student getStudentById(long id) {
+		return students.get(id) ;
+	}
+
+}

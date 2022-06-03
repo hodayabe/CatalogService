@@ -1,0 +1,12 @@
+package ajbc.webService.rest.API_Demo.models;
+
+public interface Hardware {
+	
+	ID UUID
+	type :Type
+	model : String
+	manufacturer : String
+	
+	
+
+}

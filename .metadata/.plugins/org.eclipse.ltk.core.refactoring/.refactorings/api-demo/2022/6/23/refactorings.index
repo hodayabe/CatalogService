@@ -1,0 +1,50 @@
+1654067670300	Rename type 'IOTThingRunable'
+1654073820097	Rename type 'InventoryRunnable'
+1654078600004	Encapsulate field 'uuid'
+1654091914197	Delete element
+1654091918850	Delete element
+1654091924131	Delete element
+1654091928755	Delete element
+1654091934424	Delete element
+1654091992213	Delete element
+1654092013393	Delete element
+1654092016378	Delete element
+1654097253301	Rename type 'InventoryReportRunable'
+1654097734381	Rename type 'MultiClient'
+1654098314754	Rename local variable 'NUM_IotThings'
+1654105836050	Copy compilation unit
+1654106299581	Copy package
+1654106305356	Delete element
+1654115081442	Move compilation unit
+1654115428951	Delete element
+1654117778434	Copy compilation unit
+1654118816435	Rename type 'StudentFilterBean'
+1654156514798	Rename field 'model'
+1654157881508	Rename field 'model'
+1654157935490	Rename method 'setModel'
+1654159115104	Delete element
+1654161519664	Delete element
+1654161599356	Delete element
+1654169481531	Copy package
+1654169508655	Delete element
+1654169581546	Copy package
+1654169652112	Rename type 'IOTThingResource'
+1654169668245	Rename type 'DeviceResource'
+1654172816332	Rename compilation unit 'MultiTreadedServerRunner.java'
+1654173439102	Rename type 'ServerThread'
+1654173470124	Rename type 'InventoryServer'
+1654176646350	Delete element
+1654178146316	Rename type 'ServerThread'
+1654190398534	Copy package
+1654190463575	Delete element
+1654190653808	Delete element
+1654190661877	Copy package
+1654190677205	Delete element
+1654190735102	Rename type 'DBService'
+1654194461781	Copy package
+1654194489088	Rename type 'IOTThing'
+1654195936830	Rename type 'IOTThingtTest'
+1654205988086	Rename compilation unit 'Device.java'
+1654206125453	Rename method 'getModle'
+1654206138461	Rename method 'setModle'
+1654206249395	Delete element

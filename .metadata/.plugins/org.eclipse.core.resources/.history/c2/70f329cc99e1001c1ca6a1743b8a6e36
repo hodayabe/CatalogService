@@ -1,0 +1,35 @@
+package ajbc.webService.rest.API_Demo.server;
+
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+
+public class InventoryServer {
+	private static final int PORT = 8080;
+
+//	public static void main(String[] args) throws InterruptedException {
+//
+//		ExecutorService executorService = Executors.newCachedThreadPool();
+//
+//		try (ServerSocket serverSocket = new ServerSocket(PORT);) {
+//
+//			System.out.println("Inventory Server started on port " + PORT);
+//
+//			while (true) {
+//				Socket clientSocket = serverSocket.accept();
+//				executorService.execute(new ServerThread(clientSocket));
+//			}
+//		} catch (IOException e) {
+//			System.err.println("Failed to start server on port " + PORT);
+//			e.printStackTrace();
+//		} finally {
+//			executorService.shutdown();
+//			executorService.awaitTermination(2, TimeUnit.SECONDS);
+//		}
+//
+//	}
+
+}
